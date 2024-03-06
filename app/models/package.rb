@@ -5,4 +5,6 @@ class Package < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :amount_cents, presence: true
+
+  after_create -> { Price.create!(package: self, amount_cents: self.amount_cents) }
 end
